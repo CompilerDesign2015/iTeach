@@ -25,16 +25,15 @@ public class ITeach {
         String regexCountAddSubtract = "(count|add|subtract)";
         String regexCountAdd = "(count|add)(\\()([0-9]+)(,)([0-9]+)(,)(\\w+)(\\))";
         String regexSubtract = "(subtract)(\\()([0-9]+)(,)([0-9]+)(,)(\\w+)(,)(\\w+)(\\))";
-    
-    // TEST CODES HERE : USE ONLY ONE "code" VARIABLE AT A TIME    
-        //Add Slide Code
-    //        String code = "background(FIELD) START container(TREE) OPEN add(1,2,APPLE) CLOSE END";
-        //Count Slide Code
-              String code = "background(FIELD) START count(1,2,APPLE) CLOSE END";
-        
-        //Subtract Slide Code
-    //        String code = "background(FIELD) START container(TREE) OPEN subtract(1,2,APPLE,BASKET) CLOSE END";
 
+        // TEST CODES HERE : USE ONLY ONE "code" VARIABLE AT A TIME    
+        //Add Slide Code
+        //        String code = "background(FIELD) START container(TREE) OPEN add(1,2,APPLE) CLOSE END";
+        //Count Slide Code
+        String code = "background(FIELD) START count(1,2,APPLE) CLOSE END";
+
+        //Subtract Slide Code
+        //        String code = "background(FIELD) START container(TREE) OPEN subtract(1,2,APPLE,BASKET) CLOSE END";
         Pattern pBackground = Pattern.compile(regexBackground);
         Matcher mBackground = pBackground.matcher(code);
         int n = 1;
