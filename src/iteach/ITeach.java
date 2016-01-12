@@ -16,7 +16,7 @@ public class ITeach {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void checkSyntaxWhole() {
         // TODO code application logic here
 
         String regexBackground = "(background)(\\()((?:[A-Z][A-Z0-9_]*))(\\))(\\s+)(START)(.*?)(END)";
