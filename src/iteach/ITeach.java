@@ -73,7 +73,17 @@ public class ITeach extends JPanel {
         Pattern regexCountAddSubtract = Pattern.compile("(count|add|subtract)");
         Pattern regexCountAdd = Pattern.compile("(count|add)(\\()([0-5]+)(,)([0-5]+)(,)(\\w+)(\\))");
         Pattern regexSubtract = Pattern.compile("(subtract)(\\()([0-5]+)(,)([0-5]+)(,)(\\w+)(,)(\\w+)(\\))");
-
+        
+        Pattern patternLine1 = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternLine2 = Pattern.compile("(^START$)");
+        Pattern patternLine3 = Pattern.compile("(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternLine4 = Pattern.compile("(^OPEN$)");
+        Pattern patternCount = Pattern.compile("(^count)(\\()([0-5]+)(, )([0-9]+)(, )(\\w+)(\\)$)");
+        Pattern patternAdd = Pattern.compile("(^add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\)$)");
+        Pattern patternSubtract = Pattern.compile("(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
+        Pattern patternLine7 = Pattern.compile("(^CLOSE$)");
+        Pattern patternLine8 = Pattern.compile("(^END$)");
+        
         Pattern testAll = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)"
                 + "|(^START$)"
                 + "|(^END$)"
@@ -86,8 +96,6 @@ public class ITeach extends JPanel {
         code.getHighlighter().removeAllHighlights();
         
         Matcher m;
-        int endCnt = 0;
-        int closeCnt = 0;
         for (int i = 0; i < line.length; i++) {
             m = testAll.matcher(line[i]);
             if (!m.find()) {
@@ -97,46 +105,9 @@ public class ITeach extends JPanel {
                     Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-            m = regexBackground.matcher(line[i]);
-            if (m.find()) {
-                endCnt++;
-            }
-            m = regexContainerCount.matcher(line[i]);
-            if (m.find()) {
-
-                closeCnt++;
-            }
-            m = regexContainer.matcher(line[i]);
-            if (m.find()) {
-
-            }
-            m = regexCountAddSubtract.matcher(line[i]);
-            if (m.find()) {
-
-            }
-            m = regexCountAdd.matcher(line[i]);
-            if (m.find()) {
-
-            }
-            m = regexSubtract.matcher(line[i]);
-            if (m.find()) {
-
-            }
-
-            if (line[i].matches("END")) {
-                System.out.println(line.length);
-                endCnt--;
-            }
-
-            if (line[i].matches("CLOSE")) {
-                System.out.println(line.length);
-                closeCnt--;
-            }
-
-            if (i == line.length - 1 && endCnt != 0 && closeCnt != 0) {
-                JOptionPane.showMessageDialog(null, "Take a look at your closing tags!");
-            }
+        }
+        for (int i = 0; i < line.length; i++) {
+            m = regex
         }
     }
 
