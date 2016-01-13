@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import java.util.regex.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
@@ -74,16 +73,6 @@ public class ITeach extends JPanel {
         Pattern regexCountAdd = Pattern.compile("(count|add)(\\()([0-5]+)(,)([0-5]+)(,)(\\w+)(\\))");
         Pattern regexSubtract = Pattern.compile("(subtract)(\\()([0-5]+)(,)([0-5]+)(,)(\\w+)(,)(\\w+)(\\))");
 
-        Pattern patternBackground = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
-        Pattern patternStart = Pattern.compile("(^START$)");
-        Pattern patternContainer = Pattern.compile("(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
-        Pattern patternOpen = Pattern.compile("(^OPEN$)");
-        Pattern patternCount = Pattern.compile("(^count)(\\()([0-5]+)(, )([0-9]+)(, )(\\w+)(\\)$)");
-        Pattern patternAdd = Pattern.compile("(^add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\)$)");
-        Pattern patternSubtract = Pattern.compile("(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
-        Pattern patternClose = Pattern.compile("(^CLOSE$)");
-        Pattern patternEnd = Pattern.compile("(^END$)");
-
         Pattern testAll = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)"
                 + "|(^START$)"
                 + "|(^END$)"
@@ -94,14 +83,35 @@ public class ITeach extends JPanel {
                 + "|(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
 
         code.getHighlighter().removeAllHighlights();
+        checkSequence(line);
+        //Matcher m;
+        //for (int i = 0; i < line.length; i++) {
+        //    m = testAll.matcher(line[i]);
+        //    if (!m.find()) {
+        //        highlightLine(i);
+        //    }
+        //}
+    }
 
-        Matcher m;
-        for (int i = 0; i < line.length; i++) {
-            m = testAll.matcher(line[i]);
-            if (!m.find()) {
-                highlightLine(i);
-            }
+    public void highlightLine(int i) {
+        try {
+            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void checkSequence(String[] line) {
+        Pattern patternBackground = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternStart = Pattern.compile("(^START$)");
+        Pattern patternContainer = Pattern.compile("(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternOpen = Pattern.compile("(^OPEN$)");
+        Pattern patternCount = Pattern.compile("(^count)(\\()([0-5]+)(, )([0-9]+)(, )(\\w+)(\\)$)");
+        Pattern patternAdd = Pattern.compile("(^add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\)$)");
+        Pattern patternSubtract = Pattern.compile("(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
+        Pattern patternClose = Pattern.compile("(^CLOSE$)");
+        Pattern patternEnd = Pattern.compile("(^END$)");
+
         for (int i = 0; i < line.length;) {
             if (patternBackground.matcher(line[i]).find()) {
                 i++;
@@ -170,14 +180,6 @@ public class ITeach extends JPanel {
                     Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
-    }
-
-    public void highlightLine(int i) {
-        try {
-            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
