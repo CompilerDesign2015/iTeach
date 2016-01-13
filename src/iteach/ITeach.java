@@ -22,7 +22,7 @@ import javax.swing.text.DefaultHighlighter;
 
 /**
  *
- * @author DANIEL KENNETH
+ * @author iTeach
  */
 public class ITeach extends JPanel {
 
@@ -73,17 +73,17 @@ public class ITeach extends JPanel {
         Pattern regexCountAddSubtract = Pattern.compile("(count|add|subtract)");
         Pattern regexCountAdd = Pattern.compile("(count|add)(\\()([0-5]+)(,)([0-5]+)(,)(\\w+)(\\))");
         Pattern regexSubtract = Pattern.compile("(subtract)(\\()([0-5]+)(,)([0-5]+)(,)(\\w+)(,)(\\w+)(\\))");
-        
-        Pattern patternLine1 = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
-        Pattern patternLine2 = Pattern.compile("(^START$)");
-        Pattern patternLine3 = Pattern.compile("(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
-        Pattern patternLine4 = Pattern.compile("(^OPEN$)");
+
+        Pattern patternBackground = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternStart = Pattern.compile("(^START$)");
+        Pattern patternContainer = Pattern.compile("(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternOpen = Pattern.compile("(^OPEN$)");
         Pattern patternCount = Pattern.compile("(^count)(\\()([0-5]+)(, )([0-9]+)(, )(\\w+)(\\)$)");
         Pattern patternAdd = Pattern.compile("(^add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\)$)");
         Pattern patternSubtract = Pattern.compile("(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
-        Pattern patternLine7 = Pattern.compile("(^CLOSE$)");
-        Pattern patternLine8 = Pattern.compile("(^END$)");
-        
+        Pattern patternClose = Pattern.compile("(^CLOSE$)");
+        Pattern patternEnd = Pattern.compile("(^END$)");
+
         Pattern testAll = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)"
                 + "|(^START$)"
                 + "|(^END$)"
@@ -92,13 +92,78 @@ public class ITeach extends JPanel {
                 + "|(^CLOSE$)"
                 + "|(^count|add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\)$)"
                 + "|(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
-        
+
         code.getHighlighter().removeAllHighlights();
-        
+
         Matcher m;
         for (int i = 0; i < line.length; i++) {
             m = testAll.matcher(line[i]);
             if (!m.find()) {
+                highlightLine(i);
+            }
+        }
+        for (int i = 0; i < line.length;) {
+            if (patternBackground.matcher(line[i]).find()) {
+                i++;
+                if (patternStart.matcher(line[i]).find()) {
+                    i++;
+                    if (patternCount.matcher(line[i]).find()) {
+                        i++;
+                    } else if (patternContainer.matcher(line[i]).find()) {
+                        i++;
+                        if (patternOpen.matcher(line[i]).find()) {
+                            i++;
+                            if (patternAdd.matcher(line[i]).find()) {
+                                i++;
+                            } else if (patternSubtract.matcher(line[i]).find()) {
+                                i++;
+                            } else {
+                                try {
+                                    code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                                } catch (BadLocationException ex) {
+                                    Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        } else {
+                            try {
+                                code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                            } catch (BadLocationException ex) {
+                                Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        if (patternClose.matcher(line[i]).find()) {
+                            i++;
+                        } else {
+                            try {
+                                code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                            } catch (BadLocationException ex) {
+                                Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    } else {
+                        try {
+                            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                        } catch (BadLocationException ex) {
+                            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    if (patternEnd.matcher(line[i]).find()) {
+                        i++;
+                    } else {
+                        try {
+                            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                        } catch (BadLocationException ex) {
+                            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                } else {
+                    try {
+                        code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else {
                 try {
                     code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
                 } catch (BadLocationException ex) {
@@ -106,8 +171,13 @@ public class ITeach extends JPanel {
                 }
             }
         }
-        for (int i = 0; i < line.length; i++) {
-            m = regex
+    }
+
+    public void highlightLine(int i) {
+        try {
+            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
