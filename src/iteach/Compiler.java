@@ -75,14 +75,14 @@ public class Compiler extends JPanel {
         Pattern regexCountAdd = Pattern.compile("(count|add)(\\()([0-5]+)(,)([0-5]+)(,)(\\w+)(\\))");
         Pattern regexSubtract = Pattern.compile("(subtract)(\\()([0-5]+)(,)([0-5]+)(,)(\\w+)(,)(\\w+)(\\))");
 
-        Pattern testAll = Pattern.compile("(background)(\\()((?:[A-Z][A-Z0-9_]*))(\\))"
-                + "|(START)"
-                + "|(END)"
-                + "|(container)(\\()((?:[A-Z][A-Z0-9_]*))(\\))"
-                + "|(OPEN)"
-                + "|(CLOSE)"
-                + "|(count|add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\))"
-                + "|(subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\))");
+        Pattern testAll = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)"
+                + "|(^START$)"
+                + "|(^END$)"
+                + "|(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)"
+                + "|(^OPEN$)"
+                + "|(^CLOSE$)"
+                + "|(^count|add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\)$)"
+                + "|(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
         
         code.getHighlighter().removeAllHighlights();
         
