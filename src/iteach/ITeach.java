@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import java.util.regex.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
@@ -22,7 +21,7 @@ import javax.swing.text.DefaultHighlighter;
 
 /**
  *
- * @author DANIEL KENNETH
+ * @author iTeach
  */
 public class ITeach extends JPanel {
 
@@ -82,60 +81,104 @@ public class ITeach extends JPanel {
                 + "|(^CLOSE$)"
                 + "|(^count|add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\)$)"
                 + "|(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
-        
+
         code.getHighlighter().removeAllHighlights();
-        
-        Matcher m;
-        int endCnt = 0;
-        int closeCnt = 0;
-        for (int i = 0; i < line.length; i++) {
-            m = testAll.matcher(line[i]);
-            if (!m.find()) {
+        checkSequence(line);
+        //Matcher m;
+        //for (int i = 0; i < line.length; i++) {
+        //    m = testAll.matcher(line[i]);
+        //    if (!m.find()) {
+        //        highlightLine(i);
+        //    }
+        //}
+    }
+
+    public void highlightLine(int i) {
+        try {
+            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void checkSequence(String[] line) {
+        Pattern patternBackground = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternStart = Pattern.compile("(^START$)");
+        Pattern patternContainer = Pattern.compile("(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternOpen = Pattern.compile("(^OPEN$)");
+        Pattern patternCount = Pattern.compile("(^count)(\\()([0-5]+)(, )([0-9]+)(, )(\\w+)(\\)$)");
+        Pattern patternAdd = Pattern.compile("(^add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\)$)");
+        Pattern patternSubtract = Pattern.compile("(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
+        Pattern patternClose = Pattern.compile("(^CLOSE$)");
+        Pattern patternEnd = Pattern.compile("(^END$)");
+
+        for (int i = 0; i < line.length;) {
+            if (patternBackground.matcher(line[i]).find()) {
+                i++;
+                if (patternStart.matcher(line[i]).find()) {
+                    i++;
+                    if (patternCount.matcher(line[i]).find()) {
+                        i++;
+                    } else if (patternContainer.matcher(line[i]).find()) {
+                        i++;
+                        if (patternOpen.matcher(line[i]).find()) {
+                            i++;
+                            if (patternAdd.matcher(line[i]).find()) {
+                                i++;
+                            } else if (patternSubtract.matcher(line[i]).find()) {
+                                i++;
+                            } else {
+                                try {
+                                    code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                                } catch (BadLocationException ex) {
+                                    Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        } else {
+                            try {
+                                code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                            } catch (BadLocationException ex) {
+                                Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        if (patternClose.matcher(line[i]).find()) {
+                            i++;
+                        } else {
+                            try {
+                                code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                            } catch (BadLocationException ex) {
+                                Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    } else {
+                        try {
+                            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                        } catch (BadLocationException ex) {
+                            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    if (patternEnd.matcher(line[i]).find()) {
+                        i++;
+                    } else {
+                        try {
+                            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                        } catch (BadLocationException ex) {
+                            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                } else {
+                    try {
+                        code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else {
                 try {
                     code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
                 } catch (BadLocationException ex) {
                     Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-
-            m = regexBackground.matcher(line[i]);
-            if (m.find()) {
-                endCnt++;
-            }
-            m = regexContainerCount.matcher(line[i]);
-            if (m.find()) {
-
-                closeCnt++;
-            }
-            m = regexContainer.matcher(line[i]);
-            if (m.find()) {
-
-            }
-            m = regexCountAddSubtract.matcher(line[i]);
-            if (m.find()) {
-
-            }
-            m = regexCountAdd.matcher(line[i]);
-            if (m.find()) {
-
-            }
-            m = regexSubtract.matcher(line[i]);
-            if (m.find()) {
-
-            }
-
-            if (line[i].matches("END")) {
-                System.out.println(line.length);
-                endCnt--;
-            }
-
-            if (line[i].matches("CLOSE")) {
-                System.out.println(line.length);
-                closeCnt--;
-            }
-
-            if (i == line.length - 1 && endCnt != 0 && closeCnt != 0) {
-                JOptionPane.showMessageDialog(null, "Take a look at your closing tags!");
             }
         }
     }
