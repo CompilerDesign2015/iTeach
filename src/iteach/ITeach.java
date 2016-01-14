@@ -128,57 +128,36 @@ public class ITeach extends JPanel {
                             } else if (patternSubtract.matcher(line[i]).find()) {
                                 i++;
                             } else {
-                                try {
-                                    code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
-                                } catch (BadLocationException ex) {
-                                    Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
-                                }
+                                highlightLine(i);
+                                i++;
                             }
                         } else {
-                            try {
-                                code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
-                            } catch (BadLocationException ex) {
-                                Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            highlightLine(i);
+                            i++;
                         }
                         if (patternClose.matcher(line[i]).find()) {
                             i++;
                         } else {
-                            try {
-                                code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
-                            } catch (BadLocationException ex) {
-                                Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            highlightLine(i);
+                            i++;
                         }
                     } else {
-                        try {
-                            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
-                        } catch (BadLocationException ex) {
-                            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        highlightLine(i);
+                        i++;
                     }
                     if (patternEnd.matcher(line[i]).find()) {
                         i++;
                     } else {
-                        try {
-                            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
-                        } catch (BadLocationException ex) {
-                            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        highlightLine(i);
+                        i++;
                     }
                 } else {
-                    try {
-                        code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    highlightLine(i);
+                    i++;
                 }
             } else {
-                try {
-                    code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                highlightLine(i);
+                i++;
             }
         }
     }
