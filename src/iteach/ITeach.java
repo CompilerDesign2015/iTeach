@@ -106,8 +106,8 @@ public class ITeach extends JPanel {
         Pattern patternStart = Pattern.compile("(^START$)");
         Pattern patternContainer = Pattern.compile("(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
         Pattern patternOpen = Pattern.compile("(^OPEN$)");
-        Pattern patternCount = Pattern.compile("(^count)(\\()([0-5]+)(, )([0-9]+)(, )(\\w+)(\\)$)");
-        Pattern patternAdd = Pattern.compile("(^add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(\\)$)");
+        Pattern patternCount = Pattern.compile("(^count)(\\()([0-5]+)(, )(\\w+)(\\)$)");
+        Pattern patternAdd = Pattern.compile("(^add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
         Pattern patternSubtract = Pattern.compile("(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
         Pattern patternClose = Pattern.compile("(^CLOSE$)");
         Pattern patternEnd = Pattern.compile("(^END$)");
@@ -163,7 +163,6 @@ public class ITeach extends JPanel {
     }
 
     public static void main(String[] args) {
-        // TODO code application logic here
         JFrame Editor = new JFrame("iTeach");
         Editor.setBounds(50, 100, 800, 500);
         Editor.getContentPane().add(new ITeach());
