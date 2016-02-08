@@ -8,6 +8,7 @@ package iteach;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +33,8 @@ public class ITeach extends JPanel {
     private ArrayList<String> stack;
     JTextArea code;
     JButton run;
+    String delims = "[, ()]+";
+    String[] method;
 
     public ITeach() {
         initializeWindow();
@@ -61,11 +64,15 @@ public class ITeach extends JPanel {
 
             }
             stack = new ArrayList<String>(lines.length);
-            parse(lines);
+            try {
+                parse(lines);
+            } catch (IOException ex) {
+                Logger.getLogger(ITeach.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
-    public void parse(String[] line) {
+    public void parse(String[] line) throws IOException {
         Pattern regexBackground = Pattern.compile("(background)(\\()((?:[A-Z][A-Z0-9_]*))(\\))(\\s+)(START)(.*?)(END)");
         Pattern regexContainerCount = Pattern.compile("(count|container)");
         Pattern regexContainer = Pattern.compile("(container)(\\()((?:[A-Z][A-Z0-9_]*))(\\))(\\s+)(OPEN)(.*?)(CLOSE)");
@@ -101,12 +108,12 @@ public class ITeach extends JPanel {
         }
     }
 
-    public void checkSequence(String[] line) {
+    public void checkSequence(String[] line) throws IOException {
         Pattern patternBackground = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
         Pattern patternStart = Pattern.compile("(^START$)");
         Pattern patternContainer = Pattern.compile("(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
         Pattern patternOpen = Pattern.compile("(^OPEN$)");
-        Pattern patternCount = Pattern.compile("(^count)(\\()([0-5]+)(, )(\\w+)(\\)$)");
+        Pattern patternCount = Pattern.compile("(^count)(\\()([0-9]+)(, )(\\w+)(\\)$)");
         Pattern patternAdd = Pattern.compile("(^add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
         Pattern patternSubtract = Pattern.compile("(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
         Pattern patternClose = Pattern.compile("(^CLOSE$)");
@@ -118,14 +125,26 @@ public class ITeach extends JPanel {
                 if (patternStart.matcher(line[i]).find()) {
                     i++;
                     if (patternCount.matcher(line[i]).find()) {
+                        method = line[i].split(delims);
+//                        for(int j = 0; j < method.length; j++)
+//                        System.out.println(method[j]);
+                        new Counting(Integer.parseInt(method[1]));
                         i++;
                     } else if (patternContainer.matcher(line[i]).find()) {
                         i++;
                         if (patternOpen.matcher(line[i]).find()) {
                             i++;
                             if (patternAdd.matcher(line[i]).find()) {
+                                method = line[i].split(delims);
+                                new Addition(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
                                 i++;
                             } else if (patternSubtract.matcher(line[i]).find()) {
+                                method = line[i].split(delims);
+                                if(Integer.parseInt(method[1])<Integer.parseInt(method[2])){
+                                    highlightLine(i);
+                                } else {
+                                    new Subtraction(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
+                                }
                                 i++;
                             } else {
                                 highlightLine(i);
