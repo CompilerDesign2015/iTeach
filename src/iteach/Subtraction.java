@@ -45,8 +45,7 @@ public class Subtraction extends javax.swing.JFrame {
         frame1.setSize(700, 500);
         JLabel jLabel2 = new javax.swing.JLabel();
         labels = new JLabel[num];
-
-        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
         frame1.setLayout(null);
 
         jLabel2.setIcon(new javax.swing.ImageIcon("/Users/jethrodivino/Dropbox/Compiler Design/Templates/Templates/NEW subtraction/sssss.png")); // NOI18N

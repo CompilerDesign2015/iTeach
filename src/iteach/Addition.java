@@ -53,8 +53,7 @@ public class Addition extends javax.swing.JFrame {
         JLabel jLabel2 = new javax.swing.JLabel();
         labelC = new JLabel[addend2];
         labelS = new JLabel[addend2];
-
-        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
         frame1.setLayout(null);
         
         

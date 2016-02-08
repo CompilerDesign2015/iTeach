@@ -53,7 +53,6 @@ public class Counting extends javax.swing.JFrame {
         JLabel jLabel2 = new javax.swing.JLabel();
         labelC = new JLabel[last];
 
-        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         frame1.setLayout(null);
 
         jLabel2.setIcon(new javax.swing.ImageIcon("/Users/jethrodivino/Dropbox/Compiler Design/Templates/Templates/Counting/bg.png")); // NOI18N
