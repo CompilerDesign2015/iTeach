@@ -101,9 +101,9 @@ public class Subtraction extends javax.swing.JFrame {
              //labels[k].setBounds(0, 0, 50, 50);
             System.out.println(k);
             if(k>4){
-                labels[k].setBounds(380 + ((k-4) * 75), 220, 75, 75);
+                labels[k].setBounds(680 + ((k-4) * 75), 300, 75, 75);
             }else{
-                labels[k].setBounds(480 + (k * 75), 140, 75, 75);
+                labels[k].setBounds(700 + (k * 75), 200, 75, 75);
             }
 
         }

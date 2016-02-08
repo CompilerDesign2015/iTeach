@@ -41,9 +41,9 @@ public class SubtractionAnim implements Runnable{
                         System.out.println("hehe");
                         //N.labels[i].setLocation(540+(40*i), 340+(j));
                         if(i>4){
-                             N.labels[i].setLocation(340+(40*i), 290+(j));
+                             N.labels[i].setLocation(550+(40*i), 450+(j));
                         }else{
-                             N.labels[i].setLocation(540+(40*i), 340+(j));
+                             N.labels[i].setLocation(730+(50*i), 500+(j));
                         }
                         
                         Thread.sleep(10);
