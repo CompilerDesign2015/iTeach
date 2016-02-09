@@ -36,17 +36,23 @@ public class CountingAnim implements Runnable{
                 for ( i = 0; i < last;i++ ) {
                    
                     System.out.println("hehe");
-                     Image bi =ImageIO.read(new File("/Users/jethrodivino/Dropbox/Compiler Design/Templates/Templates/Counting/"+ ++i +".png"));
-                    labelC[--i].setIcon(new ImageIcon(bi.getScaledInstance(100, 100, 100)));
+                 //    Image bi =ImageIO.read(new File("resources/counting/"+ ++i +".png"));
+                  //  labelC[--i].setIcon(new ImageIcon(bi.getScaledInstance(100, 100, 100)));
+                    
+                     try {
+            Image bi =ImageIO.read(new File("resources/counting/"+ ++i +".png"));
+            labelC[--i].setIcon(new ImageIcon(bi.getScaledInstance(250, 250, 100)));
+
+              } catch (Exception e) {
+                } 
                      Thread.sleep(500);
                 }
            
         } catch (InterruptedException ex) {
             Logger.getLogger(SubtractionAnim.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CountingAnim.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 		
     }
+}
 }
 
