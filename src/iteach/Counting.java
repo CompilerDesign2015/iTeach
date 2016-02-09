@@ -52,9 +52,9 @@ public class Counting extends javax.swing.JFrame {
     public static void Initialize() throws IOException {
         JFrame frame1 = new JFrame();
         //frame1.setVisible(true);
-        //frame1.setSize(700, 500);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame1.setSize(screenSize.width, screenSize.height);
+        frame1.setSize( 1136, 768);
+       // Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        //frame1.setSize(screenSize.width, screenSize.height);
         frame1.setAlwaysOnTop(true);
         frame1.setResizable(false);       
         frame1.setVisible(true);
@@ -73,14 +73,14 @@ public class Counting extends javax.swing.JFrame {
          try {
             Image bi =ImageIO.read(new File("resources/counting/bg.png"));
             jLabel2.setText("");
-            jLabel2.setIcon(new ImageIcon(bi.getScaledInstance(screenSize.width, screenSize.height, 100)));
+            jLabel2.setIcon(new ImageIcon(bi.getScaledInstance( 1136, 768, 100)));
             frame1.add(jLabel2, 1, 0);
 
               } catch (Exception e) {
                 } 
 
         //jLabel2.setBounds(0, 30, 600, 337);
-         jLabel2.setBounds(0, 0, screenSize.width, screenSize.height);
+         jLabel2.setBounds(0, 0,  1136, 768);
         int c;
         Graphics g = null;
 
@@ -96,9 +96,9 @@ public class Counting extends javax.swing.JFrame {
                 } 
             System.out.println(k);
             if(k>4){
-                labelC[k].setBounds(((k-4) * 220)-110, 300, 250, 250);
+                labelC[k].setBounds(((k-4) * 200)-190, 300, 250, 250);
             }else{
-                labelC[k].setBounds(1200 + ((k-5) * 220), 100, 250, 250);
+                labelC[k].setBounds(1000 + ((k-5) * 200), 100, 250, 250);
             }
 
         }

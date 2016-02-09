@@ -49,8 +49,9 @@ public class Subtraction extends javax.swing.JFrame {
 
     public static void Initialize() {
         JFrame frame1 = new JFrame();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame1.setSize(screenSize.width, screenSize.height);
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+       // frame1.setSize(screenSize.width, screenSize.height);
+        frame1.setSize(1136, 639);
         frame1.setAlwaysOnTop(true);
         frame1.setResizable(false);       
         frame1.setVisible(true);
@@ -69,7 +70,7 @@ public class Subtraction extends javax.swing.JFrame {
                try {
             Image bi =ImageIO.read(new File("resources/subtraction/bg.png"));
             jLabel2.setText("");
-            jLabel2.setIcon(new ImageIcon(bi.getScaledInstance(screenSize.width, screenSize.height, 100)));
+            jLabel2.setIcon(new ImageIcon(bi.getScaledInstance( 1136, 639, 100)));
             frame1.add(jLabel2, 1, 0);
 
               } catch (Exception e) {
@@ -79,7 +80,7 @@ public class Subtraction extends javax.swing.JFrame {
        // frame1.add(jLabel2);
 
        // jLabel2.setBounds(0, 30, 600, 337);
-        jLabel2.setBounds(0, 0, screenSize.width, screenSize.height);
+        jLabel2.setBounds(0, 0,  1136, 639);
         int c;
 
         for (int k = 0; k < num; k++) {
@@ -101,9 +102,9 @@ public class Subtraction extends javax.swing.JFrame {
              //labels[k].setBounds(0, 0, 50, 50);
             System.out.println(k);
             if(k>4){
-                labels[k].setBounds(680 + ((k-4) * 75), 300, 75, 75);
+                labels[k].setBounds(500 + ((k-4) * 75), 250, 75, 75);
             }else{
-                labels[k].setBounds(700 + (k * 75), 200, 75, 75);
+                labels[k].setBounds(500 + (k * 75), 150, 75, 75);
             }
 
         }

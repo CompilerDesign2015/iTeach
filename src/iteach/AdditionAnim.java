@@ -37,13 +37,13 @@ public class AdditionAnim implements Runnable{
                 for ( i = 0; i < addend1; i++) {
                     for(j=0,k=0; j<80 && k < 80; k++, j++){
                         System.out.println("hehe");
-                        N.labelC[i].setLocation((1125*k/100)+(40*i), 330+(j));
+                        N.labelC[i].setLocation((960*k/100)+(30*i), 270+(j));
                         Thread.sleep(5);
                       //  N.labelC[i].setIcon(new javax.swing.ImageIcon("C:\\Users\\DANIEL KENNETH\\Dropbox\\Compiler Design\\Templates\\Templates\\NEW addition\\AppleGlow.png"));
                         try {
                             Image bi =ImageIO.read(new File("resources/addition/AppleGlow.png"));
                             N.labelC[i].setText("");
-                            N.labelC[i].setIcon(new ImageIcon(bi.getScaledInstance(75, 75, 100)));
+                            N.labelC[i].setIcon(new ImageIcon(bi.getScaledInstance(50, 50, 100)));
                             } catch (Exception e) {
                             }
                     }
@@ -52,12 +52,12 @@ public class AdditionAnim implements Runnable{
                 for ( i = 0; i < addend2; i++) {
                     for(j=0,k=0; j<80 && k < 80; k++, j++){
                         System.out.println("hehe");
-                        N.labelS[i].setLocation(400+(650*k/100)+(40*i), 280+(j));
+                        N.labelS[i].setLocation(420+(425*k/100)+(30*i), 230+(j));
                         Thread.sleep(5);
                       try {
                             Image bi =ImageIO.read(new File("resources/addition/AppleGlow.png"));
                             N.labelS[i].setText("");
-                            N.labelS[i].setIcon(new ImageIcon(bi.getScaledInstance(75, 75, 100)));
+                            N.labelS[i].setIcon(new ImageIcon(bi.getScaledInstance(50, 50, 100)));
                             } catch (Exception e) {
                             }
                     }
