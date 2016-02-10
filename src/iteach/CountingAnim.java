@@ -25,7 +25,7 @@ public class CountingAnim implements Runnable{
     public int last;
   
     CountingAnim(int num2) throws IOException{
-        N = new Counting();
+       
         last = num2;
     }
     
