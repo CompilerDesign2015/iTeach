@@ -43,6 +43,7 @@ public class Addition extends javax.swing.JFrame implements KeyListener{
     static JLabel[] labelC, labelS;
     static BufferedImage[] image;
     AdditionAnim n;
+    private Character lastKey;
   
     Addition(int num1, int num2) throws IOException{
        addend1 = num1;
@@ -151,10 +152,13 @@ public class Addition extends javax.swing.JFrame implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            System.out.println("langya");
-            Thread t = new Thread(n);
-            t.start();
+        if (lastKey == null || lastKey != e.getKeyChar()) {
+            if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+                System.out.println("langya");
+                lastKey = e.getKeyChar();
+                Thread t = new Thread(n);
+                t.start();
+            }
         }
     }
 
