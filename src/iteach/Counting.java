@@ -38,6 +38,7 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
     static JLabel[] labelC;
     static BufferedImage[] image;
 //    Thread t;
+    private Character lastKey;
     CountingAnim n;
 
     Counting(int num) throws IOException{
@@ -116,10 +117,13 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            System.out.println("langya");
-            Thread t = new Thread(n);
-            t.start();
+        if (lastKey == null || lastKey != e.getKeyChar()) {
+            if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+                System.out.println("langya");
+                lastKey = e.getKeyChar();
+                Thread t = new Thread(n);
+                t.start();
+            }
         }
     }
 

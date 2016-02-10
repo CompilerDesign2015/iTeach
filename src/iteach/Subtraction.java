@@ -38,6 +38,8 @@ public class Subtraction extends javax.swing.JFrame implements KeyListener{
     //static JLabel[] labels; 
     static JLabel[] labels;
     SubtractionAnim n;
+    private Character lastKey;
+
 
     Subtraction (int num1, int num2) throws IOException{
         num = num1;
@@ -134,10 +136,13 @@ public class Subtraction extends javax.swing.JFrame implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            System.out.println("langya");
-            Thread t = new Thread(n);
-            t.start();
+        if (lastKey == null || lastKey != e.getKeyChar()) {
+            if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+                System.out.println("langya");
+                lastKey = e.getKeyChar();
+                Thread t = new Thread(n);
+                t.start();
+            }
         }
     }
 
