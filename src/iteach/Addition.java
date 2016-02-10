@@ -12,6 +12,8 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +29,7 @@ import javax.swing.JLabel;
  *
  * @author DANIEL KENNETH
  */
-public class Addition extends javax.swing.JFrame {
+public class Addition extends javax.swing.JFrame implements KeyListener{
    
 
     /**
@@ -40,24 +42,24 @@ public class Addition extends javax.swing.JFrame {
     //static JLabel[] labelC; 
     static JLabel[] labelC, labelS;
     static BufferedImage[] image;
-
+    AdditionAnim n;
   
     Addition(int num1, int num2) throws IOException{
        addend1 = num1;
        addend2 = num2;
-       AdditionAnim n = new AdditionAnim(addend1,addend2);
-       Thread t = new Thread(n);
-       t.start();
+       n = new AdditionAnim(addend1,addend2);
+       Initialize();
     }
     
     Addition() throws IOException{
-       Initialize();  
+//       Initialize();  
     }
     
 
-    public static void Initialize() throws IOException {
+    public void Initialize() throws IOException {
         JFrame frame1 = new JFrame();
         frame1.setSize(1136, 639);
+        frame1.addKeyListener(this);
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //frame1.setSize(screenSize.width, screenSize.height);
         frame1.setAlwaysOnTop(true);
@@ -140,5 +142,24 @@ public class Addition extends javax.swing.JFrame {
         }
 
 
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            System.out.println("langya");
+            Thread t = new Thread(n);
+            t.start();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
