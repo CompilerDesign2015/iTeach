@@ -5,6 +5,7 @@
  */
 package iteach;
 
+import static iteach.Addition.addend1;
 import static iteach.Addition.labelC;
 import static iteach.Subtraction.labels;
 import java.awt.Image;
@@ -22,12 +23,13 @@ import javax.swing.ImageIcon;
 public class AdditionAnim implements Runnable{
     
     Addition N;
-    public int addend1, addend2;
+    public int addend1, addend2, sum;
   
     AdditionAnim(int num1, int num2) throws IOException{
         N = new Addition();
         addend1 = num1;
         addend2 = num2;
+        sum = num1 + num2;
     }
     
     @Override
@@ -62,6 +64,8 @@ public class AdditionAnim implements Runnable{
                             }
                     }
                 }
+                
+                N.jLabel3.setText(addend1 + "+" + addend2 + "= " + sum);
                 
                
            

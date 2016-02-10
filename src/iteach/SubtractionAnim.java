@@ -7,6 +7,7 @@ package iteach;
 
 import static iteach.Subtraction.labels;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,16 +25,21 @@ import javax.swing.JLabel;
 public class SubtractionAnim implements Runnable{
     
     Subtraction N;
-    public int min, sub;
+    public int min, sub, diff;
   
     SubtractionAnim(int num1, int num2) throws IOException{
         N  = new Subtraction();
         min = num1;
         sub = num2;
+        diff = num1 - num2;
     }
+   
     
     @Override
     public void run(){
+        
+        
+        
         try {     
          int i,j;
                 for ( i = 0; i < sub; i++) {
@@ -63,10 +69,14 @@ public class SubtractionAnim implements Runnable{
                      
                      Thread.sleep(10);
                 }
+                N.jLabel3.setText(min + "-" + sub + "= " + diff);
            
         } catch (InterruptedException ex) {
             Logger.getLogger(SubtractionAnim.class.getName()).log(Level.SEVERE, null, ex);
         }
 		
     }
-}
+    
+ 
+    }
+
