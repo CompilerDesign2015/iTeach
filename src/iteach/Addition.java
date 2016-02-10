@@ -117,7 +117,7 @@ public class Addition extends javax.swing.JFrame implements KeyListener{
             if(k>4){
                 labelC[k].setBounds(((k-4) * 60)-10, 220, 50, 50);  //lower
             }else{
-                labelC[k].setBounds(320 + ((k-5) * 60), 180, 50, 50);  //upper
+                labelC[k].setBounds(350 + ((k-5) * 60), 180, 50, 50);  //upper
             }
 
         }
