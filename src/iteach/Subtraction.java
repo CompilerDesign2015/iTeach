@@ -8,9 +8,11 @@ package iteach;
 import static iteach.Addition.labelS;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.List;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +31,8 @@ public class Subtraction extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    JLabel jLabel2;
+    static JLabel jLabel2;
+    static JLabel jLabel3;
     static int num,min,sub;
     //static JLabel[] labels; 
     static JLabel[] labels;
@@ -38,14 +41,16 @@ public class Subtraction extends javax.swing.JFrame {
         num = num1;
         min = num1;
         sub = num2;
+          
         SubtractionAnim n = new SubtractionAnim(min,sub);
         Thread t = new Thread(n);
         t.start();
-
     }
+    
     Subtraction() throws IOException{
          Initialize();
     }
+   
 
     public static void Initialize() {
         JFrame frame1 = new JFrame();
@@ -60,7 +65,8 @@ public class Subtraction extends javax.swing.JFrame {
         frame1.getContentPane().setBackground(Color.black);
         //frame1.setSize(700, 500);
         //frame1.setSize(1024, 576);        
-        JLabel jLabel2 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         labels = new JLabel[num];
 
         frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,7 +86,16 @@ public class Subtraction extends javax.swing.JFrame {
        // frame1.add(jLabel2);
 
        // jLabel2.setBounds(0, 30, 600, 337);
+               
         jLabel2.setBounds(0, 0,  1136, 639);
+        
+        jLabel3.setFont(new Font("Comic Sans MS", Font.PLAIN, 80)); 
+            jLabel3.setText(min + "-" + sub + "= ?");
+            jLabel3.setSize(300, 300);
+            
+            frame1.add(jLabel3, 1, 0);
+            
+            jLabel3.setBounds(150, -30, 500, 500);
         int c;
 
         for (int k = 0; k < num; k++) {
@@ -111,5 +126,7 @@ public class Subtraction extends javax.swing.JFrame {
 
     }
 }
+
+
 
 

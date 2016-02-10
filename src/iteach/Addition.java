@@ -7,12 +7,17 @@ package iteach;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -23,12 +28,13 @@ import javax.swing.JLabel;
  * @author DANIEL KENNETH
  */
 public class Addition extends javax.swing.JFrame {
-    private static Object image1;
+   
 
     /**
      * @param args the command line arguments
      */
-    JLabel jLabel2;
+    static JLabel jLabel2;
+    static JLabel jLabel3;
     static int addend1;
     static int addend2;
     //static JLabel[] labelC; 
@@ -60,7 +66,8 @@ public class Addition extends javax.swing.JFrame {
         frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         frame1.setLayout(null);
         frame1.getContentPane().setBackground(Color.black);
-        JLabel jLabel2 = new javax.swing.JLabel();
+         jLabel2 = new javax.swing.JLabel();
+         jLabel3 = new javax.swing.JLabel();
         labelC = new JLabel[addend1];
         labelS = new JLabel[addend2];
        // frame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -82,6 +89,16 @@ public class Addition extends javax.swing.JFrame {
 
         jLabel2.setBounds(0, 0, 1136, 639);
        int  k = 0;
+    
+           
+            jLabel3.setFont(new Font("Comic Sans MS", Font.PLAIN, 60)); 
+            jLabel3.setText(addend1 + "+" + addend2 + "= ?");
+            jLabel3.setSize(200, 300);
+            
+            frame1.add(jLabel3, 1, 0);
+            
+            jLabel3.setBounds(820, -30, 500, 500);
+        
 
         for ( k = 0; k < addend1; k++) {
             labelC[k] = new JLabel("");
