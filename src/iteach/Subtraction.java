@@ -120,9 +120,9 @@ public class Subtraction extends javax.swing.JFrame implements KeyListener{
              //labels[k].setBounds(0, 0, 50, 50);
             System.out.println(k);
             if(k>4){
-                labels[k].setBounds(500 + ((k-4) * 75), 250, 75, 75);
+                labels[k].setBounds(550 + ((k-4) * 75), 250, 75, 75);
             }else{
-                labels[k].setBounds(500 + (k * 75), 150, 75, 75);
+                labels[k].setBounds(550 + (k * 75), 150, 75, 75);
             }
 
         }
