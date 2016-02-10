@@ -57,6 +57,7 @@ public class Addition extends javax.swing.JFrame {
         frame1.setAlwaysOnTop(true);
         frame1.setResizable(false);       
         frame1.setVisible(true);
+        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         frame1.setLayout(null);
         frame1.getContentPane().setBackground(Color.black);
         JLabel jLabel2 = new javax.swing.JLabel();

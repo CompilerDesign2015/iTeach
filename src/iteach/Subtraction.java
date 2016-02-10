@@ -71,7 +71,6 @@ public class Subtraction extends javax.swing.JFrame {
             jLabel2.setText("");
             jLabel2.setIcon(new ImageIcon(bi.getScaledInstance( 1136, 639, 100)));
             frame1.add(jLabel2, 1, 0);
-
               } catch (Exception e) {
                 } 
 
