@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import javax.swing.JLabel;
  *
  * @author DANIEL KENNETH
  */
-public class Subtraction extends javax.swing.JFrame {
+public class Subtraction extends javax.swing.JFrame implements KeyListener{
 
     /**
      * @param args the command line arguments
@@ -36,31 +37,31 @@ public class Subtraction extends javax.swing.JFrame {
     static int num,min,sub;
     //static JLabel[] labels; 
     static JLabel[] labels;
+    SubtractionAnim n;
 
     Subtraction (int num1, int num2) throws IOException{
         num = num1;
         min = num1;
-        sub = num2;
-          
-        SubtractionAnim n = new SubtractionAnim(min,sub);
-        Thread t = new Thread(n);
-        t.start();
+        sub = num2;          
+        n = new SubtractionAnim(min,sub);
+        Initialize();
     }
     
     Subtraction() throws IOException{
-         Initialize();
+//        Initialize();
     }
    
 
-    public static void Initialize() {
+    public void Initialize() {
         JFrame frame1 = new JFrame();
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
        // frame1.setSize(screenSize.width, screenSize.height);
+        frame1.addKeyListener(this);
         frame1.setSize(1136, 639);
         frame1.setAlwaysOnTop(true);
         frame1.setResizable(false);       
         frame1.setVisible(true);
-        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         frame1.setLayout(null);
         frame1.getContentPane().setBackground(Color.black);
         //frame1.setSize(700, 500);
@@ -68,8 +69,7 @@ public class Subtraction extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         labels = new JLabel[num];
-
-        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
         frame1.setLayout(null);
         
         
@@ -84,6 +84,7 @@ public class Subtraction extends javax.swing.JFrame {
 
       //  jLabel2.setIcon(new javax.swing.ImageIcon("resources/subtraction/sssss.png")); // NOI18N
        // frame1.add(jLabel2);
+
 
        // jLabel2.setBounds(0, 30, 600, 337);
                
@@ -124,6 +125,25 @@ public class Subtraction extends javax.swing.JFrame {
 
         }
 
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            System.out.println("langya");
+            Thread t = new Thread(n);
+            t.start();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

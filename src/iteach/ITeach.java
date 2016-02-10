@@ -118,8 +118,9 @@ public class ITeach extends JPanel {
         Pattern patternSubtract = Pattern.compile("(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
         Pattern patternClose = Pattern.compile("(^CLOSE$)");
         Pattern patternEnd = Pattern.compile("(^END$)");
-
-        for (int i = 0; i < line.length;) {
+        int i;
+        boolean check = true;
+        for (i = 0; i < line.length;) {
             if (patternBackground.matcher(line[i]).find()) {
                 i++;
                 if (patternStart.matcher(line[i]).find()) {
@@ -128,7 +129,7 @@ public class ITeach extends JPanel {
                         method = line[i].split(delims);
 //                        for(int j = 0; j < method.length; j++)
 //                        System.out.println(method[j]);
-                        new Counting(Integer.parseInt(method[1]));
+//                        new Counting(Integer.parseInt(method[1]));
                         i++;
                     } else if (patternContainer.matcher(line[i]).find()) {
                         i++;
@@ -136,47 +137,81 @@ public class ITeach extends JPanel {
                             i++;
                             if (patternAdd.matcher(line[i]).find()) {
                                 method = line[i].split(delims);
-                                new Addition(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
+//                                new Addition(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
                                 i++;
                             } else if (patternSubtract.matcher(line[i]).find()) {
                                 method = line[i].split(delims);
                                 if(Integer.parseInt(method[1])<Integer.parseInt(method[2])){
                                     highlightLine(i);
+                                    check = false;
+                                    break;
                                 } else {
-                                    new Subtraction(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
+//                                    new Subtraction(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
                                 }
                                 i++;
                             } else {
                                 highlightLine(i);
                                 i++;
+                                check = false;
+                                break;
                             }
                         } else {
                             highlightLine(i);
                             i++;
+                            check = false;
+                            break;
                         }
                         if (patternClose.matcher(line[i]).find()) {
                             i++;
                         } else {
                             highlightLine(i);
                             i++;
+                            check = false;
+                            break;
                         }
                     } else {
                         highlightLine(i);
                         i++;
+                        check = false;
+                        break;
                     }
                     if (patternEnd.matcher(line[i]).find()) {
                         i++;
                     } else {
                         highlightLine(i);
                         i++;
+                        check = false;
+                        break;
                     }
                 } else {
                     highlightLine(i);
-                    i++;
+                    check = false;
+                    i++;break;
                 }
             } else {
                 highlightLine(i);
                 i++;
+                check = false;
+            }
+        }
+//        System.out.println(i);
+        System.out.println(check);
+        if(check){
+            if (null != method[0])switch (method[0]) {
+                case "count":
+                    new Counting(Integer.parseInt(method[1]));
+                    break;
+                case "add":
+                    new Addition(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
+                    break;
+                case "subtract":
+                    System.out.println("hheeere");
+                    if(Integer.parseInt(method[1])>Integer.parseInt(method[2])){
+                        new Subtraction(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }

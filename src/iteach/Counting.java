@@ -11,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,47 +26,48 @@ import javax.swing.JLabel;
  *
  * @author DANIEL KENNETH
  */
-public class Counting extends javax.swing.JFrame {
+public class Counting extends javax.swing.JFrame implements KeyListener{
     private static Object image1;
 
     /**
      * @param args the command line arguments
      */
     JLabel jLabel2;
-
     static int last;
     //static JLabel[] labelC; 
     static JLabel[] labelC;
     static BufferedImage[] image;
+//    Thread t;
+    CountingAnim n;
 
     Counting(int num) throws IOException{
         last = num;
-        CountingAnim n = new CountingAnim(last);
-        Thread t = new Thread(n);
-        t.start();
-
+        n = new CountingAnim(last);
+//        Thread t = new Thread(n);
+        Initialize();
     }
     
     Counting() throws IOException{
        Initialize();  
     }
 
-    public static void Initialize() throws IOException {
+    public void Initialize() throws IOException {
+        
         JFrame frame1 = new JFrame();
         //frame1.setVisible(true);
+        frame1.addKeyListener(this);
         frame1.setSize( 1136, 768);
        // Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //frame1.setSize(screenSize.width, screenSize.height);
         frame1.setAlwaysOnTop(true);
         frame1.setResizable(false);       
         frame1.setVisible(true);
-        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         frame1.setLayout(null);
         frame1.getContentPane().setBackground(Color.black);
         JLabel jLabel2 = new javax.swing.JLabel();
         labelC = new JLabel[last];
 
-        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         frame1.setLayout(null);
 
         //jLabel2.setIcon(new javax.swing.ImageIcon("resources/counting/bg.png")); // NOI18N
@@ -103,5 +106,25 @@ public class Counting extends javax.swing.JFrame {
 
         }
 
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            System.out.println("langya");
+            Thread t = new Thread(n);
+            t.start();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
