@@ -44,8 +44,9 @@ public class ITeach extends JPanel {
     public void initializeWindow() {
         run = new JButton();
         run.setText("iTeach it!");
+        //run.setBounds(20, 10, 10, 10);
         run.addActionListener(new runListener());
-        code = new JTextArea(25, 50);
+        code = new JTextArea(50, 50);
 
         add(run);
         add(code);
@@ -218,7 +219,7 @@ public class ITeach extends JPanel {
 
     public static void main(String[] args) {
         JFrame Editor = new JFrame("iTeach");
-        Editor.setBounds(50, 100, 800, 600);
+        Editor.setBounds(0, 0, 600, 600);
         Editor.getContentPane().add(new ITeach());
         Editor.setVisible(true);
         Editor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
