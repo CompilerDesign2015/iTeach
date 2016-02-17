@@ -207,7 +207,7 @@ public class ITeach extends JPanel {
                     break;
                 case "subtract":
                     System.out.println("hheeere");
-                    if(Integer.parseInt(method[1])>Integer.parseInt(method[2])){
+                    if(Integer.parseInt(method[1])>=Integer.parseInt(method[2])){
                         new Subtraction(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
                     }
                     break;
@@ -222,6 +222,7 @@ public class ITeach extends JPanel {
         Editor.setBounds(0, 0, 600, 600);
         Editor.getContentPane().add(new ITeach());
         Editor.setVisible(true);
+        Editor.setResizable(false);
         Editor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
