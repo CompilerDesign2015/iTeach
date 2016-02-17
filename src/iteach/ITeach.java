@@ -45,12 +45,12 @@ public class ITeach extends JPanel {
 
     public void initializeWindow() {
         run = new JButton();
-        run.setText("Run");
+        run.setText("iTeach it!");
         run.addActionListener(new runListener());
         code = new JTextArea(25, 50);
 
-        add(code);
         add(run);
+        add(code);
     }
 
     private void push(int i) {
@@ -104,7 +104,7 @@ public class ITeach extends JPanel {
 
     public void highlightLine(int i) {
         try {
-            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+            code.getHighlighter().addHighlight(code.getLineStartOffset(i), code.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW));
         } catch (BadLocationException ex) {
             Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -217,7 +217,7 @@ public class ITeach extends JPanel {
 
     public static void main(String[] args) {
         JFrame Editor = new JFrame("iTeach");
-        Editor.setBounds(50, 100, 800, 500);
+        Editor.setBounds(50, 100, 800, 600);
         Editor.getContentPane().add(new ITeach());
         Editor.setVisible(true);
         Editor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
