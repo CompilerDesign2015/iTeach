@@ -40,6 +40,7 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
 //    Thread t;
     private Character lastKey;
     CountingAnim n;
+    JFrame frame1;
 
     Counting(int num) throws IOException{
         last = num;
@@ -54,7 +55,7 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
 
     public void Initialize() throws IOException {
         
-        JFrame frame1 = new JFrame();
+        frame1 = new JFrame();
         //frame1.setVisible(true);
         frame1.addKeyListener(this);
         frame1.setSize( 1136, 768);
@@ -111,19 +112,22 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
 
     @Override
     public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (lastKey == null || lastKey != e.getKeyChar()) {
-            if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            if(e.getKeyCode() == KeyEvent.VK_SPACE){
                 System.out.println("langya");
                 lastKey = e.getKeyChar();
                 Thread t = new Thread(n);
                 t.start();
             }
+        }
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            frame1.dispose();
         }
     }
 
