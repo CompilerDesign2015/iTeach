@@ -39,7 +39,7 @@ public class Subtraction extends javax.swing.JFrame implements KeyListener{
     static JLabel[] labels;
     SubtractionAnim n;
     private Character lastKey;
-
+    JFrame frame1;
 
     Subtraction (int num1, int num2) throws IOException{
         num = num1;
@@ -55,7 +55,7 @@ public class Subtraction extends javax.swing.JFrame implements KeyListener{
    
 
     public void Initialize() {
-        JFrame frame1 = new JFrame();
+        frame1 = new JFrame();
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
        // frame1.setSize(screenSize.width, screenSize.height);
         frame1.addKeyListener(this);
@@ -131,18 +131,21 @@ public class Subtraction extends javax.swing.JFrame implements KeyListener{
 
     @Override
     public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (lastKey == null || lastKey != e.getKeyChar()) {
-            if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            if(e.getKeyCode() == KeyEvent.VK_SPACE){
                 System.out.println("langya");
                 lastKey = e.getKeyChar();
                 Thread t = new Thread(n);
                 t.start();
             }
+        }
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            frame1.dispose();
         }
     }
 
