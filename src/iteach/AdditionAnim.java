@@ -40,7 +40,7 @@ public class AdditionAnim implements Runnable{
                     for(j=0,k=0; j<80 && k < 80; k++, j++){
                         System.out.println("hehe");
                         N.labelC[i].setLocation((960*k/100)+(30*i), 270+(j));
-                        Thread.sleep(5);
+                        Thread.sleep(1);
                       //  N.labelC[i].setIcon(new javax.swing.ImageIcon("C:\\Users\\DANIEL KENNETH\\Dropbox\\Compiler Design\\Templates\\Templates\\NEW addition\\AppleGlow.png"));
                         try {
                             Image bi =ImageIO.read(new File("resources/addition/AppleGlow.png"));
@@ -55,7 +55,7 @@ public class AdditionAnim implements Runnable{
                     for(j=0,k=0; j<80 && k < 80; k++, j++){
                         System.out.println("hehe");
                         N.labelS[i].setLocation(420+(425*k/100)+(30*i), 230+(j));
-                        Thread.sleep(5);
+                        Thread.sleep(1);
                       try {
                             Image bi =ImageIO.read(new File("resources/addition/AppleGlow.png"));
                             N.labelS[i].setText("");
