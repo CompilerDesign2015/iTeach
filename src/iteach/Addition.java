@@ -44,6 +44,7 @@ public class Addition extends javax.swing.JFrame implements KeyListener{
     static BufferedImage[] image;
     AdditionAnim n;
     private Character lastKey;
+    JFrame frame1;
   
     Addition(int num1, int num2) throws IOException{
        addend1 = num1;
@@ -58,7 +59,7 @@ public class Addition extends javax.swing.JFrame implements KeyListener{
     
 
     public void Initialize() throws IOException {
-        JFrame frame1 = new JFrame();
+        frame1 = new JFrame();
         frame1.setSize(1136, 639);
         frame1.addKeyListener(this);
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -147,18 +148,21 @@ public class Addition extends javax.swing.JFrame implements KeyListener{
 
     @Override
     public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (lastKey == null || lastKey != e.getKeyChar()) {
-            if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            if(e.getKeyCode() == KeyEvent.VK_SPACE){
                 System.out.println("langya");
                 lastKey = e.getKeyChar();
                 Thread t = new Thread(n);
                 t.start();
             }
+        }
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            frame1.dispose();
         }
     }
 
