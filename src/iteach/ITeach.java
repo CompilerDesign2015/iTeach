@@ -34,7 +34,9 @@ public class ITeach extends JPanel {
     JTextArea code;
     JButton run;
     String delims = "[, ()]+";
-    String[] method;
+    String[] add;
+    String[] count;
+    String[] subtract;
 
     public ITeach() {
         initializeWindow();
@@ -126,7 +128,7 @@ public class ITeach extends JPanel {
                 if (patternStart.matcher(line[i]).find()) {
                     i++;
                     if (patternCount.matcher(line[i]).find()) {
-                        method = line[i].split(delims);
+                        count = line[i].split(delims);
 //                        for(int j = 0; j < method.length; j++)
 //                        System.out.println(method[j]);
 //                        new Counting(Integer.parseInt(method[1]));
@@ -136,12 +138,12 @@ public class ITeach extends JPanel {
                         if (patternOpen.matcher(line[i]).find()) {
                             i++;
                             if (patternAdd.matcher(line[i]).find()) {
-                                method = line[i].split(delims);
+                                add = line[i].split(delims);
 //                                new Addition(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
                                 i++;
                             } else if (patternSubtract.matcher(line[i]).find()) {
-                                method = line[i].split(delims);
-                                if(Integer.parseInt(method[1])<Integer.parseInt(method[2])){
+                                subtract = line[i].split(delims);
+                                if(Integer.parseInt(subtract[1])<Integer.parseInt(subtract[2])){
                                     highlightLine(i);
                                     check = false;
                                     break;
@@ -197,22 +199,19 @@ public class ITeach extends JPanel {
 //        System.out.println(i);
         System.out.println(check);
         if(check){
-            if (null != method[0])switch (method[0]) {
-                case "count":
-                    new Counting(Integer.parseInt(method[1]));
-                    break;
-                case "add":
-                    new Addition(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
-                    break;
-                case "subtract":
-                    System.out.println("hheeere");
-                    if(Integer.parseInt(method[1])>Integer.parseInt(method[2])){
-                        new Subtraction(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
-                    }
-                    break;
-                default:
-                    break;
+            if (count!=null){
+                new Counting(Integer.parseInt(count[1]));
             }
+            if(add!=null){
+                new Addition(Integer.parseInt(add[1]), Integer.parseInt(add[2]));
+            }
+            if(subtract!=null){
+                System.out.println("hheeere");
+                if(Integer.parseInt(subtract[1])>=Integer.parseInt(subtract[2])){
+                    new Subtraction(Integer.parseInt(subtract[1]), Integer.parseInt(subtract[2]));
+                }
+            }
+            
         }
     }
 
