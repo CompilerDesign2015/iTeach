@@ -206,7 +206,7 @@ public class ITeach extends JPanel {
                     break;
                 case "subtract":
                     System.out.println("hheeere");
-                    if(Integer.parseInt(method[1])>Integer.parseInt(method[2])){
+                    if(Integer.parseInt(method[1])>=Integer.parseInt(method[2])){
                         new Subtraction(Integer.parseInt(method[1]), Integer.parseInt(method[2]));
                     }
                     break;
