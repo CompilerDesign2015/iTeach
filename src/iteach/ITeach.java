@@ -217,7 +217,7 @@ public class ITeach extends JPanel {
 
     public static void main(String[] args) {
         JFrame Editor = new JFrame("iTeach");
-        Editor.setBounds(50, 100, 800, 600);
+        Editor.setBounds(50, 100, 600, 600);
         Editor.getContentPane().add(new ITeach());
         Editor.setVisible(true);
         Editor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
