@@ -58,7 +58,7 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
         frame1 = new JFrame();
         //frame1.setVisible(true);
         frame1.addKeyListener(this);
-        frame1.setSize( 1136, 768);
+        frame1.setSize( 1136, 639);
        // Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //frame1.setSize(screenSize.width, screenSize.height);
         frame1.setAlwaysOnTop(true);
@@ -78,14 +78,14 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
          try {
             Image bi =ImageIO.read(new File("resources/counting/bg.png"));
             jLabel2.setText("");
-            jLabel2.setIcon(new ImageIcon(bi.getScaledInstance( 1136, 768, 100)));
+            jLabel2.setIcon(new ImageIcon(bi.getScaledInstance( 1136, 639, 100)));
             frame1.add(jLabel2, 1, 0);
 
               } catch (Exception e) {
                 } 
 
         //jLabel2.setBounds(0, 30, 600, 337);
-         jLabel2.setBounds(0, 0,  1136, 768);
+         jLabel2.setBounds(0, 0,  1136, 639);
         int c;
         Graphics g = null;
 
