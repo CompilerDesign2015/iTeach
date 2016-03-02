@@ -26,7 +26,8 @@ import javax.swing.JLabel;
  *
  * @author DANIEL KENNETH
  */
-public class Counting extends javax.swing.JFrame implements KeyListener{
+public class Counting extends javax.swing.JFrame implements KeyListener {
+
     private static Object image1;
 
     /**
@@ -42,27 +43,27 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
     CountingAnim n;
     JFrame frame1;
 
-    Counting(int num) throws IOException{
+    Counting(int num) throws IOException {
         last = num;
         n = new CountingAnim(last);
 //        Thread t = new Thread(n);
         Initialize();
     }
-    
-    Counting() throws IOException{
-       Initialize();  
+
+    Counting() throws IOException {
+        Initialize();
     }
 
     public void Initialize() throws IOException {
-        
+
         frame1 = new JFrame();
         //frame1.setVisible(true);
         frame1.addKeyListener(this);
-        frame1.setSize( 1136, 639);
-       // Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame1.setSize(1136, 639);
+        // Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //frame1.setSize(screenSize.width, screenSize.height);
         frame1.setAlwaysOnTop(true);
-        frame1.setResizable(false);       
+        frame1.setResizable(false);
         frame1.setVisible(true);
 //        frame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         frame1.setLayout(null);
@@ -74,36 +75,35 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
 
         //jLabel2.setIcon(new javax.swing.ImageIcon("resources/counting/bg.png")); // NOI18N
         //frame1.add(jLabel2);
-        
-         try {
-            Image bi =ImageIO.read(new File("resources/counting/bg.png"));
+        try {
+            Image bi = ImageIO.read(new File("resources/counting/bg.png"));
             jLabel2.setText("");
-            jLabel2.setIcon(new ImageIcon(bi.getScaledInstance( 1136, 639, 100)));
+            jLabel2.setIcon(new ImageIcon(bi.getScaledInstance(1136, 639, 100)));
             frame1.add(jLabel2, 1, 0);
 
-              } catch (Exception e) {
-                } 
+        } catch (Exception e) {
+        }
 
         //jLabel2.setBounds(0, 30, 600, 337);
-         jLabel2.setBounds(0, 0,  1136, 639);
+        jLabel2.setBounds(0, 0, 1136, 639);
         int c;
         Graphics g = null;
 
         for (int k = 0; k < last; k++) {
             labelC[k] = new JLabel("");
-           try {
-            Image bi =ImageIO.read(new File("resources/counting/original.png"));
-            labelC[k].setText("");
-            labelC[k].setIcon(new ImageIcon(bi.getScaledInstance(250, 250, 100)));
-            frame1.add(labelC[k], 1, 0);
+            try {
+                Image bi = ImageIO.read(new File("resources/counting/original.png"));
+                labelC[k].setText("");
+                labelC[k].setIcon(new ImageIcon(bi.getScaledInstance(250, 250, 100)));
+                frame1.add(labelC[k], 1, 0);
 
-              } catch (Exception e) {
-                } 
+            } catch (Exception e) {
+            }
             System.out.println(k);
-            if(k>4){
-                labelC[k].setBounds(((k-4) * 200)-190, 300, 250, 250);
-            }else{
-                labelC[k].setBounds(1000 + ((k-5) * 200), 100, 250, 250);
+            if (k > 4) {
+                labelC[k].setBounds(((k - 4) * 200) - 190, 300, 250, 250);
+            } else {
+                labelC[k].setBounds(1000 + ((k - 5) * 200), 100, 250, 250);
             }
 
         }
@@ -119,14 +119,14 @@ public class Counting extends javax.swing.JFrame implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         if (lastKey == null || lastKey != e.getKeyChar()) {
-            if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 System.out.println("langya");
                 lastKey = e.getKeyChar();
                 Thread t = new Thread(n);
                 t.start();
             }
         }
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             frame1.dispose();
         }
     }
