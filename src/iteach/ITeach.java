@@ -10,7 +10,7 @@ package iteach;
  * @author iTeach
  */
 public class ITeach {
-    
+
     public static void main(String[] args) {
         GUI g = new GUI();
         g.setVisible(true);

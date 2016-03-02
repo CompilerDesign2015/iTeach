@@ -21,11 +21,11 @@ import javax.swing.text.DefaultHighlighter;
 public class Compiler {
 
     private final JTextArea txtAreaCode;
-    
+
     public Compiler(JTextArea tAreaCode) {
         this.txtAreaCode = tAreaCode;
     }
-    
+
     public void highlightLine(int i) {
         try {
             txtAreaCode.getHighlighter().addHighlight(txtAreaCode.getLineStartOffset(i), txtAreaCode.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW));
@@ -46,13 +46,13 @@ public class Compiler {
         Pattern patternEnd = Pattern.compile("(^END$)");
         int i;
         boolean check = true;
-        
+
         String delims = "[, ()]+";
-        
+
         String[] add = null;
         String[] count = null;
         String[] subtract = null;
-        
+
         txtAreaCode.getHighlighter().removeAllHighlights();
 
         for (i = 0; i < line.length;) {

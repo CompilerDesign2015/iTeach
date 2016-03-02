@@ -19,40 +19,38 @@ import javax.swing.ImageIcon;
  *
  * @author DANIEL KENNETH
  */
-public class CountingAnim implements Runnable{
-    
+public class CountingAnim implements Runnable {
+
     Counting N;
     public int last;
-  
-    CountingAnim(int num2) throws IOException{
-       
+
+    CountingAnim(int num2) throws IOException {
+
         last = num2;
     }
-    
-    @Override
-    public void run(){
-        try {     
-         int i,j;
-                for ( i = 0; i < last;i++ ) {
-                   
-                    System.out.println("hehe");
-                 //    Image bi =ImageIO.read(new File("resources/counting/"+ ++i +".png"));
-                  //  labelC[--i].setIcon(new ImageIcon(bi.getScaledInstance(100, 100, 100)));
-                    
-                     try {
-            Image bi =ImageIO.read(new File("resources/counting/"+ ++i +".png"));
-            labelC[--i].setIcon(new ImageIcon(bi.getScaledInstance(250, 250, 100)));
 
-              } catch (Exception e) {
-                } 
-                     Thread.sleep(500);
+    @Override
+    public void run() {
+        try {
+            int i, j;
+            for (i = 0; i < last; i++) {
+
+                System.out.println("hehe");
+                //    Image bi =ImageIO.read(new File("resources/counting/"+ ++i +".png"));
+                //  labelC[--i].setIcon(new ImageIcon(bi.getScaledInstance(100, 100, 100)));
+
+                try {
+                    Image bi = ImageIO.read(new File("resources/counting/" + ++i + ".png"));
+                    labelC[--i].setIcon(new ImageIcon(bi.getScaledInstance(250, 250, 100)));
+
+                } catch (Exception e) {
                 }
-           
+                Thread.sleep(500);
+            }
+
         } catch (InterruptedException ex) {
             Logger.getLogger(SubtractionAnim.class.getName()).log(Level.SEVERE, null, ex);
-        
-		
+
+        }
     }
 }
-}
-
