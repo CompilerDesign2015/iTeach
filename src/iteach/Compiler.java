@@ -5,8 +5,14 @@
  */
 package iteach;
 
-import java.util.regex.Matcher;
+import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.JTextArea;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
 
 /**
  *
@@ -14,100 +20,125 @@ import java.util.regex.Pattern;
  */
 public class Compiler {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void checkSyntaxWhole() {
-        // TODO code application logic here
-
-        String regexBackground = "(background)(\\()((?:[A-Z][A-Z0-9_]*))(\\))(\\s+)(START)(.*?)(END)";
-        String regexContainerCount = "(count|container)";
-        String regexContainer = "(container)(\\()((?:[A-Z][A-Z0-9_]*))(\\))(\\s+)(OPEN)(.*?)(CLOSE)";
-        String regexCountAddSubtract = "(count|add|subtract)";
-        String regexCountAdd = "(count|add)(\\()([0-9]+)(,)([0-9]+)(,)(\\w+)(\\))";
-        String regexSubtract = "(subtract)(\\()([0-9]+)(,)([0-9]+)(,)(\\w+)(,)(\\w+)(\\))";
-
-        // TEST CODES HERE : USE ONLY ONE "code" VARIABLE AT A TIME    
-        //Add Slide Code
-        //        String code = "background(FIELD) START container(TREE) OPEN add(1,2,APPLE) CLOSE END";
-        //Count Slide Code
-        String code = "background(FIELD) START count(1,2,APPLE) CLOSE END";
-
-        //Subtract Slide Code
-        //        String code = "background(FIELD) START container(TREE) OPEN subtract(1,2,APPLE,BASKET) CLOSE END";
-        Pattern pBackground = Pattern.compile(regexBackground);
-        Matcher mBackground = pBackground.matcher(code);
-        int n = 1;
-        String containerCountString = null;
-        String addSubtractString = null;
-        String countString = null;
-
-        if (mBackground.find()) {
-            while (n < 9) {
-                System.out.println(mBackground.group(n++));
-                if (n == 7) {
-                    containerCountString = mBackground.group(n);
-                }
-            }
-            Pattern pContainerCount = Pattern.compile(regexContainerCount);
-            Matcher mContainerCount = pContainerCount.matcher(containerCountString);
-            if (mContainerCount.find()) {
-                System.out.println(mContainerCount.group(1));
-                if (mContainerCount.group(1).equals("count")) {
-                    Pattern pCount = Pattern.compile(regexCountAdd);
-                    Matcher mCount = pCount.matcher(containerCountString);
-                    if (mCount.find()) {
-                        n = 1;
-                        while (n < 9) {
-                            System.out.println(mCount.group(n++));
-                        }
-                    }
-                } else if (mContainerCount.group(1).equals("container")) {
-                    Pattern pContainer = Pattern.compile(regexContainer);
-                    Matcher mContainer = pContainer.matcher(containerCountString);
-                    if (mContainer.find()) {
-                        n = 1;
-                        while (n < 9) {
-                            System.out.println(mContainer.group(n++));
-                            if (n == 7) {
-                                addSubtractString = mContainer.group(n);
-                            }
-                        }
-                    }
-                    System.out.println(addSubtractString);
-                    Pattern pAddSubtract = Pattern.compile(regexCountAddSubtract);
-                    Matcher mAddSubtract = pAddSubtract.matcher(addSubtractString);
-                    if (mAddSubtract.find()) {
-                        System.out.println(mAddSubtract.group(1));
-                        if (mAddSubtract.group(1).equals("add")) {
-                            System.out.println("ADD SIYA");
-                            Pattern pAdd = Pattern.compile(regexCountAdd);
-                            Matcher mAdd = pAdd.matcher(addSubtractString);
-                            if (mAdd.find()) {
-                                n = 1;
-                                while (n < 9) {
-                                    System.out.println(mAdd.group(n++));
-                                }
-                            }
-
-                        } else if (mAddSubtract.group(1).equals("subtract")) {
-                            System.out.println("SUBTRACT SIYA");
-                            Pattern pSubtract = Pattern.compile(regexSubtract);
-                            Matcher mSubtract = pSubtract.matcher(addSubtractString);
-                            if (mSubtract.find()) {
-                                n = 1;
-                                while (n < 11) {
-                                    System.out.println(mSubtract.group(n++));
-                                }
-                            }
-                        }
-                    }
-
-                }
-            }
-
+    private final JTextArea txtAreaCode;
+    
+    public Compiler(JTextArea tAreaCode) {
+        this.txtAreaCode = tAreaCode;
+    }
+    
+    public void highlightLine(int i) {
+        try {
+            txtAreaCode.getHighlighter().addHighlight(txtAreaCode.getLineStartOffset(i), txtAreaCode.getLineEndOffset(i), new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW));
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
+    public void parse(String[] line) throws IOException {
+        Pattern patternBackground = Pattern.compile("(^background)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternStart = Pattern.compile("(^START$)");
+        Pattern patternContainer = Pattern.compile("(^container)(\\()((?:[A-Z][A-Z0-9_]*))(\\)$)");
+        Pattern patternOpen = Pattern.compile("(^OPEN$)");
+        Pattern patternCount = Pattern.compile("(^count)(\\()([0-9]+)(, )(\\w+)(\\)$)");
+        Pattern patternAdd = Pattern.compile("(^add)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
+        Pattern patternSubtract = Pattern.compile("(^subtract)(\\()([0-5]+)(, )([0-5]+)(, )(\\w+)(, )(\\w+)(\\)$)");
+        Pattern patternClose = Pattern.compile("(^CLOSE$)");
+        Pattern patternEnd = Pattern.compile("(^END$)");
+        int i;
+        boolean check = true;
+        
+        String delims = "[, ()]+";
+        
+        String[] add = null;
+        String[] count = null;
+        String[] subtract = null;
+        
+        txtAreaCode.getHighlighter().removeAllHighlights();
+
+        for (i = 0; i < line.length;) {
+            if (patternBackground.matcher(line[i]).find()) {
+                i++;
+                if (patternStart.matcher(line[i]).find()) {
+                    i++;
+                    if (patternCount.matcher(line[i]).find()) {
+                        count = line[i].split(delims);
+                        i++;
+                    } else if (patternContainer.matcher(line[i]).find()) {
+                        i++;
+                        if (patternOpen.matcher(line[i]).find()) {
+                            i++;
+                            if (patternAdd.matcher(line[i]).find()) {
+                                add = line[i].split(delims);
+                                i++;
+                            } else if (patternSubtract.matcher(line[i]).find()) {
+                                subtract = line[i].split(delims);
+                                if (Integer.parseInt(subtract[1]) < Integer.parseInt(subtract[2])) {
+                                    highlightLine(i);
+                                    check = false;
+                                    break;
+                                } else {
+                                }
+                                i++;
+                            } else {
+                                highlightLine(i);
+                                i++;
+                                check = false;
+                                break;
+                            }
+                        } else {
+                            highlightLine(i);
+                            i++;
+                            check = false;
+                            break;
+                        }
+                        if (patternClose.matcher(line[i]).find()) {
+                            i++;
+                        } else {
+                            highlightLine(i);
+                            i++;
+                            check = false;
+                            break;
+                        }
+                    } else {
+                        highlightLine(i);
+                        i++;
+                        check = false;
+                        break;
+                    }
+                    if (patternEnd.matcher(line[i]).find()) {
+                        i++;
+                    } else {
+                        highlightLine(i);
+                        i++;
+                        check = false;
+                        break;
+                    }
+                } else {
+                    highlightLine(i);
+                    check = false;
+                    i++;
+                    break;
+                }
+            } else {
+                highlightLine(i);
+                i++;
+                check = false;
+            }
+        }
+        System.out.println(check);
+        if (check) {
+            if (count != null) {
+                new Counting(Integer.parseInt(count[1]));
+            }
+            if (add != null) {
+                new Addition(Integer.parseInt(add[1]), Integer.parseInt(add[2]));
+            }
+            if (subtract != null) {
+                System.out.println("Checking validity of subtraction inputs...");
+                if (Integer.parseInt(subtract[1]) >= Integer.parseInt(subtract[2])) {
+                    new Subtraction(Integer.parseInt(subtract[1]), Integer.parseInt(subtract[2]));
+                }
+            }
+        }
+    }
 }
