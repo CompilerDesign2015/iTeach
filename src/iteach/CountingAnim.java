@@ -6,7 +6,6 @@
 package iteach;
 
 import static iteach.Counting.labelC;
-import static iteach.Subtraction.labels;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;

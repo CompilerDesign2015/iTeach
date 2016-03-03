@@ -166,7 +166,9 @@ public class GUI extends JFrame {
                 chooser.setFileFilter(filter);
                 chooser.setApproveButtonText("Save");
                 int retVal = chooser.showOpenDialog(btnSave);
-                file = new File(chooser.getSelectedFile() + ".txt");
+                if (retVal == JFileChooser.APPROVE_OPTION) {
+                    file = new File(chooser.getSelectedFile() + ".txt");
+                }
             }
 
             BufferedWriter out;

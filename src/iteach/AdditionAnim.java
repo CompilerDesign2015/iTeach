@@ -5,9 +5,6 @@
  */
 package iteach;
 
-import static iteach.Addition.addend1;
-import static iteach.Addition.labelC;
-import static iteach.Subtraction.labels;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
